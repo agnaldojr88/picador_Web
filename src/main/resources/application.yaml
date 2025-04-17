@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://192.168.20.154:3306/picadores
+    username: picador
+    password: pic@dor32024
+  application:
+    name: Web
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+  sql:
+    init:
+      mode: never
+server:
+  port: 8082
+
+jwt:
+  secret: super-secret
