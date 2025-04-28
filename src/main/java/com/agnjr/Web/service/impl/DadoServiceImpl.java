@@ -1,7 +1,8 @@
-package com.agnjr.Web.service;
+package com.agnjr.Web.service.impl;
 
 import com.agnjr.Web.model.Dado;
 import com.agnjr.Web.repository.DadoRepository;
+import com.agnjr.Web.service.DadoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,6 @@ public class DadoServiceImpl implements DadoService {
 
 
     private  final DadoRepository dadoRepository;
-
 
     @Override
     public List<Dado> getAll(){
@@ -30,4 +30,7 @@ public class DadoServiceImpl implements DadoService {
     public Dado salvar(Dado dado){
         return dadoRepository.save(dado);
     }
+
+
+
 }
