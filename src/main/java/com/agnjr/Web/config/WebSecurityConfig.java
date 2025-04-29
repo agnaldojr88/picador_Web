@@ -34,8 +34,13 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(HttpMethod.POST, "/auth").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/dados").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/login").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/save").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/dados/").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/picadores/*").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/picadores/").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/dados").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/produtos/").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/produtos", "/produtos/").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/register").permitAll()

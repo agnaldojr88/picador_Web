@@ -29,8 +29,8 @@ public class User implements UserDetails {
     private Role role;
     private String username;
 
-    @OneToMany(mappedBy = "user")
-    private List<Picador> picadores;
+    //@OneToMany(mappedBy = "user")
+    //private List<Picador> picadores;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

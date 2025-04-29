@@ -38,7 +38,7 @@ public class Dado {
     private float var11_consumoLenta;
     private float var12_consumoProducao;
 
-    private long  var13_codigoPicador;
+    private long  codigoPicador;
     private long  var14_;
     private long  var15_;
     private long  var16_;

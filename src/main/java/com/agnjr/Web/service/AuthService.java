@@ -31,10 +31,11 @@ public class AuthService {
 
         validateRegisterRequest(registerRequest);
 
-        User user = User.builder().name(registerRequest.username())
+        User user = User.builder()
+                .name(registerRequest.username())
+                .lastName(registerRequest.lastName())
                 .email(registerRequest.email())
                 .password(passwordEncoder.encode(registerRequest.password()))
-                .lastName(registerRequest.lastName())
                 .role(registerRequest.role()).build();
         return userService.save(user);
     }
@@ -68,4 +69,7 @@ public class AuthService {
         }
 
     }
+
+
+
 }

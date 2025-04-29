@@ -1,7 +1,9 @@
 package com.agnjr.Web.service.impl;
 
+import com.agnjr.Web.exception.RecursoNaoEncontradoException;
 import com.agnjr.Web.model.Dado;
 import com.agnjr.Web.model.Picador;
+import com.agnjr.Web.payload.PicadorRequest;
 import com.agnjr.Web.repository.DadoRepository;
 import com.agnjr.Web.repository.PicadorRepository;
 import com.agnjr.Web.service.DadoService;
@@ -24,14 +26,36 @@ public class PicadorServiceImpl implements PicadorService {
         return picadorRepository.findAll();
     }
 
+
+
     @Override
-    public Optional<Picador> getById(Long id){
-        return picadorRepository.findById(id);
+    public Picador salvar(PicadorRequest picador){
+
+
+        Picador obj = new Picador();
+
+        obj.setCodigoPicador(picador.codigoPicador());
+        obj.setNome(picador.nome());
+        obj.setData(picador.data());
+        obj.setCliente(picador.cliente());
+
+        obj.setCidade(picador.cidade());
+        obj.setEstado(picador.estado());
+        obj.setPais(picador.pais());
+
+        obj.setCep(picador.cep());
+
+        obj.setUsers(picador.users());
+
+
+
+        return picadorRepository.save(obj);
     }
 
     @Override
-    public Picador salvar(Picador picador){
-        return picadorRepository.save(picador);
+    public Picador getById(Long id) {
+        return picadorRepository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Carro não encontrado com id: " + id));
     }
 
 

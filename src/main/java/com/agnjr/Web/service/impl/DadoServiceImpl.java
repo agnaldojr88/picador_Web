@@ -4,6 +4,7 @@ import com.agnjr.Web.model.Dado;
 import com.agnjr.Web.repository.DadoRepository;
 import com.agnjr.Web.service.DadoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,17 @@ public class DadoServiceImpl implements DadoService {
     @Override
     public List<Dado> getAll(){
         return dadoRepository.findAll();
+    }
+
+    /*
+    @Override
+    public List<Dado> getAllByCodigoPicador(long codigo) {
+        return dadoRepository.findAllByCodigoPicador(codigo);
+    }*/
+
+    @Override
+    public List<Dado> getAllByCodigoPicadorPaginado(long codigo, Pageable pageable) {
+        return dadoRepository.findAllByCodigoPicador(codigo, pageable);
     }
 
     @Override

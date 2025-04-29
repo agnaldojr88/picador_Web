@@ -32,54 +32,10 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
 
-        //authService.register(registerRequest);
+        authService.register(registerRequest);
 
-        //userService.saveRecord(registerRequest);
-
-        return ResponseEntity.ok(authService.register(registerRequest));
+        return ResponseEntity.ok("Usuário cadastrado com sucesso!");
     }
 
 
-    @GetMapping("/save2")
-    public void save2(){
-
-        User user = new User();
-
-        user.setId(null);
-        user.setName("Agnaldo");
-        user.setLastName("Junior");
-        user.setEmail("agnaldo@gmail.com");
-        user.setPassword(passwordEncoder.encode("5544690"));
-        user.setRole(Role.ADMIN);
-        user.setUsername("agnaldo88");
-
-
-        userService.save(user);
-
-
-
-        log.info("User saved");
-
-    }
-
-
-    @GetMapping("/save")
-    public void save(){
-
-        User user = new User();
-
-        user.setId(null);
-        user.setName("Agnaldo");
-        user.setLastName("Junior");
-        user.setEmail("agnaldo@gmail.com");
-        user.setPassword(passwordEncoder.encode("5544690"));
-        user.setRole(Role.ADMIN);
-        user.setUsername("agnaldo88");
-
-
-        userService.save(user);
-
-        log.info("User saved");
-
-    }
 }

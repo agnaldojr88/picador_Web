@@ -20,15 +20,25 @@ public class Picador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double codigoPicador;
+    private long codigoPicador;
     private String nome;
     private LocalDateTime data;
     private String cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private User user;
+    private String cidade;
+    private String estado;
+    private String pais;
+    private String cep;
 
+    //@ManyToOne
+    //@JoinColumn(name = "usuario_id")
+    //private User user;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "picador_user",
+            joinColumns = @JoinColumn(name = "picador_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users;
 
 
 }
