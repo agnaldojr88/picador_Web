@@ -20,4 +20,4 @@ server:
   port: 8082
 
 jwt:
-  secret: super-secret
+  secret: seg-ross3ti

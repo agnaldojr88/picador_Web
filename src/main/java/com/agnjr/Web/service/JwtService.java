@@ -20,7 +20,7 @@ public class JwtService {
                 .withSubject(userDetails.getUsername())
                 .withIssuedAt(LocalDateTime.now().toInstant(ZoneOffset.from(ZoneOffset.UTC)))
                 .withExpiresAt(LocalDateTime.now().plusDays(2).toInstant(ZoneOffset.from(ZoneOffset.UTC)))
-                .withIssuer("cervejaria@acme.com.br")
+                .withIssuer("agnaldo@rosseti.ind.br")
                 .withClaim("roles", roles)
                 .sign(algorithm);
     }

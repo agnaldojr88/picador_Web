@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/picadores/dados/")
 @RequiredArgsConstructor
 @Slf4j
 public class DadoController {
@@ -29,16 +29,27 @@ public class DadoController {
     }
     */
 
-    //URL: http://localhost:8082/dados/?codigo=452025&page=0&size=10
-    @GetMapping("dados/")
+    //URL: http://localhost:8082/dados/?codigoPicador=452025&page=0&size=10
+    @GetMapping("/")
     public ResponseEntity<?> findAllByCodigoPicador(
-            @RequestParam long codigo,
+            @RequestParam long codigoPicador,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("dataHora").descending());
-        return ResponseEntity.ok(dadoService.getAllByCodigoPicadorPaginado(codigo, pageable));
+        return ResponseEntity.ok(dadoService.getAllByCodigoPicadorPaginado(codigoPicador, pageable));
     }
+
+    /*
+    //http://localhost:8082/dados/findTop/?codigoPicador=452025
+    @GetMapping("dados/findTop/")
+    public ResponseEntity<?> findTopByCodigoPicadorOrderByDataHoraDesc(
+            @RequestParam long codigoPicador,
+            @RequestParam(defaultValue = "0") int page
+    ) {
+        return ResponseEntity.ok(dadoService.getFindTopByCodigoPicadorOrderByDataHoraDesc(codigoPicador));
+    }
+    */
 
 
 }

@@ -1,5 +1,6 @@
 package com.agnjr.Web.service;
 
+import com.agnjr.Web.dto.UserDTO;
 import com.agnjr.Web.model.User;
 import com.agnjr.Web.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,8 @@ public class UserService implements UserDetailsService {
 
 
 
-    public List<User> getAll(){
-        return userRepository.findAll();
+    public List<UserDTO> getAll(){
+        return userRepository.getAll();
     }
 
     public User save(User user){

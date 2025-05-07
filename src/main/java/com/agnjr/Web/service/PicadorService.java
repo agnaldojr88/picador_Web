@@ -14,7 +14,11 @@ public interface PicadorService {
 
     Picador getById(Long id);
 
+    Picador getByCodigoPicador(Long codigoPicador);
+
     Picador salvar(PicadorRequest picador);
 
+    Picador atualizar(Long id, Picador picadorAtualizado);
 
+    void deletar(Long id);
 }

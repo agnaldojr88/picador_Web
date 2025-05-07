@@ -1,6 +1,7 @@
 package com.agnjr.Web.config;
 
 
+import com.agnjr.Web.service.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -21,34 +23,45 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig {
+
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public WebSecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize ->
-                        authorize
-                                .requestMatchers(HttpMethod.POST, "/auth").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/dados").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/login").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/save").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/dados/").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/picadores/*").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/picadores/").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/dados").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/produtos/").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/produtos", "/produtos/").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/register").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/user/").hasRole("ADMIN")
-                                .anyRequest().authenticated()
-                ).build();
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.POST, "/auth").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/dados").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/picadores/**").hasRole("ADMIN")
 
+                        .requestMatchers("/dados/**").authenticated()
+                        .requestMatchers("/picadores/**").authenticated()
+                        .requestMatchers("/users/**").authenticated()
+
+
+                        .requestMatchers(HttpMethod.POST, "/picadores").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/picadores/*").authenticated()
+
+
+
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();

@@ -17,4 +17,10 @@ public interface DadoRepository extends JpaRepository<Dado, Long> {
 
 
     List<Dado> findAllByCodigoPicador(long codigo, Pageable pageable);
+
+
+    Dado findTopByCodigoPicadorOrderByDataHoraDesc(Long codigoPicador);
+
+
+
 }

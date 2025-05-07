@@ -23,9 +23,12 @@ public class AuthController {
 
     private final PasswordEncoder passwordEncoder;
 
+    
     @PostMapping("/auth")
     public ResponseEntity<?> auth(@RequestBody LoginRequest loginRequest){
+
         return ResponseEntity.ok(new ResponsePayload( authService.authenticate(loginRequest)));
+
     }
 
 
@@ -35,6 +38,12 @@ public class AuthController {
         authService.register(registerRequest);
 
         return ResponseEntity.ok("Usuário cadastrado com sucesso!");
+    }
+
+
+    @GetMapping("/users")
+    public ResponseEntity<?> findAll() {
+        return ResponseEntity.ok(userService.getAll());
     }
 
 

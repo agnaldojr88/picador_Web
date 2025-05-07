@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface PicadorRepository extends JpaRepository<Picador, Long> {
 
     List<Picador> findByUsersId(Long userId);
+
+    Picador getByCodigoPicador(Long codigoPicador);
 }

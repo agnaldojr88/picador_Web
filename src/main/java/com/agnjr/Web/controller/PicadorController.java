@@ -2,6 +2,7 @@ package com.agnjr.Web.controller;
 
 
 import com.agnjr.Web.exception.ObjectNotFoundException;
+import com.agnjr.Web.exception.RecursoNaoEncontradoException;
 import com.agnjr.Web.model.Picador;
 import com.agnjr.Web.payload.LoginRequest;
 import com.agnjr.Web.payload.PicadorRequest;
@@ -42,10 +43,30 @@ public class PicadorController {
 
         Picador picadorSalvo = picadorService.salvar(picadorRequest);
 
-
         return ResponseEntity.status(HttpStatus.CREATED).body(picadorSalvo);
     }
 
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Picador> atualizar(@PathVariable Long id, @RequestBody Picador picadorAtualizado) {
+        try {
+            Picador picador = picadorService.atualizar(id, picadorAtualizado);
+            return ResponseEntity.ok(picador);
+        } catch (RecursoNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        try {
+            picadorService.deletar(id);
+            return ResponseEntity.noContent().build();
+        } catch (RecursoNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
 
 

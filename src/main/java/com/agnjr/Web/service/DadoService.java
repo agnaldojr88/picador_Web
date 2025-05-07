@@ -13,7 +13,9 @@ public interface DadoService {
 
     //List<Dado> getAllByCodigoPicador(long codigo);
 
-    List<Dado> getAllByCodigoPicadorPaginado(long codigo, Pageable pageable);
+    List<Dado> getAllByCodigoPicadorPaginado(long codigoPicador, Pageable pageable);
+
+    Dado getFindTopByCodigoPicadorOrderByDataHoraDesc(long codigoPicador);
 
     Optional<Dado> getById(Long id);
 
