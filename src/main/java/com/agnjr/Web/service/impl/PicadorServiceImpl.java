@@ -1,11 +1,14 @@
 package com.agnjr.Web.service.impl;
 
+import com.agnjr.Web.exception.ObjectNotFoundException;
 import com.agnjr.Web.exception.RecursoNaoEncontradoException;
 import com.agnjr.Web.model.Dado;
 import com.agnjr.Web.model.Picador;
+import com.agnjr.Web.model.User;
 import com.agnjr.Web.payload.PicadorRequest;
 import com.agnjr.Web.repository.DadoRepository;
 import com.agnjr.Web.repository.PicadorRepository;
+import com.agnjr.Web.repository.UserRepository;
 import com.agnjr.Web.service.DadoService;
 import com.agnjr.Web.service.PicadorService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +24,7 @@ public class PicadorServiceImpl implements PicadorService {
 
 
     private  final PicadorRepository picadorRepository;
+    private  final UserRepository userRepository;
 
     @Override
     public List<Picador> getAll(){
@@ -45,7 +50,16 @@ public class PicadorServiceImpl implements PicadorService {
 
         obj.setCep(picador.cep());
 
-        obj.setUsers(picador.users());
+        System.out.println(picador.users());
+
+
+        List<User> users = picador.users().stream()
+                .map(userDTO -> userRepository.findById(userDTO.getId()) // Recupera o User completo
+                        .orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado")))
+                .collect(Collectors.toList());
+
+
+        obj.setUsers(users);
 
 
 

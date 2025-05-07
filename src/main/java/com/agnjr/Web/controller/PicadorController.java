@@ -19,7 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/picadores/")
+@RequestMapping("picadores")
 @RequiredArgsConstructor
 @Slf4j
 public class PicadorController {
