@@ -56,7 +56,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/picadores/*").authenticated()
 
 
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
