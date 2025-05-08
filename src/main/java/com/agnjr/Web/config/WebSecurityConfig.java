@@ -49,7 +49,7 @@ public class WebSecurityConfig {
 
                         .requestMatchers("/dados/**").authenticated()
                         .requestMatchers("/picadores/**").authenticated()
-                        .requestMatchers("/users/**").authenticated()
+                        .requestMatchers("/users/**").hasRole("ADMIN")
 
 
                         .requestMatchers(HttpMethod.POST, "/picadores").authenticated()

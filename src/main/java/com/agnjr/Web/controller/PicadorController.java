@@ -34,7 +34,7 @@ public class PicadorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findAll(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable Long id) {
         return ResponseEntity.ok(picadorService.getById(id));
     }
 

@@ -1,4 +1,6 @@
 package com.agnjr.Web.dto;
 
-public record UserDTO(Long id, String name, String lastName, String email) {}
+import com.agnjr.Web.model.Role;
+
+public record UserDTO(Long id, String name, String lastName, String email, Role role) {}
 

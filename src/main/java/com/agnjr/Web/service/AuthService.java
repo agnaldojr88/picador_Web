@@ -1,5 +1,6 @@
 package com.agnjr.Web.service;
 
+import com.agnjr.Web.exception.EmailJaExisteException;
 import com.agnjr.Web.exception.InvalidAuthException;
 import com.agnjr.Web.model.User;
 import com.agnjr.Web.payload.LoginRequest;
@@ -27,17 +28,22 @@ public class AuthService {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
 
 
-    public User register(RegisterRequest registerRequest){
 
-        validateRegisterRequest(registerRequest);
+    public boolean register(RegisterRequest registerRequest){
 
-        User user = User.builder()
-                .name(registerRequest.username())
-                .lastName(registerRequest.lastName())
-                .email(registerRequest.email())
-                .password(passwordEncoder.encode(registerRequest.password()))
-                .role(registerRequest.role()).build();
-        return userService.save(user);
+        if(validateRegisterRequest(registerRequest)) {
+
+            User user = User.builder()
+                    .name(registerRequest.name())
+                    .lastName(registerRequest.lastName())
+                    .email(registerRequest.email())
+                    .password(passwordEncoder.encode(registerRequest.password()))
+                    .role(registerRequest.role()).build();
+            userService.save(user);
+            return true;
+        }else{
+            return false;
+        }
     }
     public String authenticate(LoginRequest loginRequest){
         UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password());
@@ -51,23 +57,31 @@ public class AuthService {
     }
 
 
-    private void validateRegisterRequest(RegisterRequest request) {
+    private boolean validateRegisterRequest(RegisterRequest request) {
+
+        boolean isValid=true;
+
         if (request.password().length() <= 6) {
-            throw new InvalidAuthException("A senha deve conter mais de 6 caracteres.");
+            isValid=false;
+            //throw new InvalidAuthException("A senha deve conter mais de 6 caracteres.");
         }
 
         if (!Pattern.matches(PASSWORD_REGEX, request.password())) {
-            throw new InvalidAuthException("A senha deve conter letras e números.");
+            isValid=false;
+            //throw new InvalidAuthException("A senha deve conter letras e números.");
         }
 
         if (!Pattern.matches(EMAIL_REGEX, request.email())) {
-            throw new InvalidAuthException("Formato do e-mail inválido.");
+            isValid=false;
+            //throw new InvalidAuthException("Formato do e-mail inválido.");
         }
 
-        if(userService.findByUsernameOrEmail(request.username(), request.email()).isPresent()){
-            throw new InvalidAuthException("E-mail ou Username já cadastrado.");
+        if(userService.findByUsernameOrEmail(request.email(), request.email()).isPresent()){
+            isValid=false;
+            //throw new InvalidAuthException("Já existe um usuário com esse e-mail.");
         }
 
+        return isValid;
     }
 
 

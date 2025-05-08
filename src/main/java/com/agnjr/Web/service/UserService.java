@@ -1,6 +1,7 @@
 package com.agnjr.Web.service;
 
 import com.agnjr.Web.dto.UserDTO;
+import com.agnjr.Web.exception.RecursoNaoEncontradoException;
 import com.agnjr.Web.model.User;
 import com.agnjr.Web.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,11 @@ public class UserService implements UserDetailsService {
 
     public List<UserDTO> getAll(){
         return userRepository.getAll();
+    }
+
+    public User getById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Usuário não encontrado"));
     }
 
     public User save(User user){

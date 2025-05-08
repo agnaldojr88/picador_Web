@@ -9,6 +9,7 @@ import com.agnjr.Web.service.AuthService;
 import com.agnjr.Web.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -32,18 +33,29 @@ public class AuthController {
     }
 
 
-    @PostMapping("/register")
+    @PostMapping("/users/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
 
-        authService.register(registerRequest);
+        if(authService.register(registerRequest)) {
+            return ResponseEntity.ok("Usuário cadastrado com sucesso!");
+        }else{
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Campos inválidos!");
+        }
 
-        return ResponseEntity.ok("Usuário cadastrado com sucesso!");
+
+
     }
 
 
     @GetMapping("/users")
     public ResponseEntity<?> findAll() {
         return ResponseEntity.ok(userService.getAll());
+    }
+
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getById(id));
     }
 
 
