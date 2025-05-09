@@ -14,4 +14,6 @@ public interface PicadorRepository extends JpaRepository<Picador, Long> {
     List<Picador> findByUsersId(Long userId);
 
     Picador getByCodigoPicador(Long codigoPicador);
+
+    List<Picador> findAllByUsersEmail(String email);
 }

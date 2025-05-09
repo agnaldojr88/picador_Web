@@ -20,5 +20,7 @@ public interface PicadorService {
 
     Picador atualizar(Long id, Picador picadorAtualizado);
 
+    List<Picador> getPicadoresDoUsuario(String username);
+
     void deletar(Long id);
 }

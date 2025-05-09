@@ -1,10 +1,11 @@
 package com.agnjr.Web.controller;
 
-import com.agnjr.Web.model.Role;
+import com.agnjr.Web.exception.RecursoNaoEncontradoException;
 import com.agnjr.Web.model.User;
 import com.agnjr.Web.payload.LoginRequest;
-import com.agnjr.Web.payload.RegisterRequest;
+import com.agnjr.Web.payload.RegisterUserRequest;
 import com.agnjr.Web.payload.ResponsePayload;
+import com.agnjr.Web.payload.UpdateUserRequest;
 import com.agnjr.Web.service.AuthService;
 import com.agnjr.Web.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,16 +35,35 @@ public class AuthController {
 
 
     @PostMapping("/users/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
+    public ResponseEntity<?> register(@RequestBody RegisterUserRequest registerUserRequest){
 
-        if(authService.register(registerRequest)) {
+        if(authService.register(registerUserRequest)) {
             return ResponseEntity.ok("Usuário cadastrado com sucesso!");
         }else{
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Campos inválidos!");
         }
+    }
 
 
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        try {
+            userService.deletar(id);
+            return ResponseEntity.noContent().build();
+        } catch (RecursoNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
+
+    @PutMapping("/users/update/{id}")
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest) {
+
+        if(authService.update(updateUserRequest)) {
+            return ResponseEntity.ok("Usuário cadastrado com sucesso!");
+        }else{
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Campos inválidos!");
+        }
     }
 
 

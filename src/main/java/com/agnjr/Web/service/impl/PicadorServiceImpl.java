@@ -97,4 +97,10 @@ public class PicadorServiceImpl implements PicadorService {
 
 
 
+    @Override
+    public List<Picador> getPicadoresDoUsuario(String username) {
+        return picadorRepository.findAllByUsersEmail(username);
+    }
+
+
 }

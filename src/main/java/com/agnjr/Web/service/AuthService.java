@@ -1,10 +1,9 @@
 package com.agnjr.Web.service;
 
-import com.agnjr.Web.exception.EmailJaExisteException;
-import com.agnjr.Web.exception.InvalidAuthException;
 import com.agnjr.Web.model.User;
 import com.agnjr.Web.payload.LoginRequest;
-import com.agnjr.Web.payload.RegisterRequest;
+import com.agnjr.Web.payload.RegisterUserRequest;
+import com.agnjr.Web.payload.UpdateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,22 +28,42 @@ public class AuthService {
 
 
 
-    public boolean register(RegisterRequest registerRequest){
+    public boolean register(RegisterUserRequest registerUserRequest){
 
-        if(validateRegisterRequest(registerRequest)) {
+        if(validateRegisterRequest(registerUserRequest)) {
 
             User user = User.builder()
-                    .name(registerRequest.name())
-                    .lastName(registerRequest.lastName())
-                    .email(registerRequest.email())
-                    .password(passwordEncoder.encode(registerRequest.password()))
-                    .role(registerRequest.role()).build();
+                    .name(registerUserRequest.name())
+                    .lastName(registerUserRequest.lastName())
+                    .email(registerUserRequest.email())
+                    .password(passwordEncoder.encode(registerUserRequest.password()))
+                    .role(registerUserRequest.role()).build();
             userService.save(user);
             return true;
         }else{
             return false;
         }
     }
+
+    public boolean update(UpdateUserRequest updateUserRequest){
+
+        if(validateUpdateRequest(updateUserRequest)) {
+
+            User user = User.builder()
+                    .id(updateUserRequest.id())
+                    .name(updateUserRequest.name())
+                    .lastName(updateUserRequest.lastName())
+                    .email(updateUserRequest.email())
+                    .password(passwordEncoder.encode(updateUserRequest.password()))
+                    .role(updateUserRequest.role()).build();
+            userService.save(user);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
     public String authenticate(LoginRequest loginRequest){
         UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password());
         Authentication authenticate = authenticationManager.authenticate(userAuth);
@@ -57,7 +76,7 @@ public class AuthService {
     }
 
 
-    private boolean validateRegisterRequest(RegisterRequest request) {
+    private boolean validateRegisterRequest(RegisterUserRequest request) {
 
         boolean isValid=true;
 
@@ -79,6 +98,26 @@ public class AuthService {
         if(userService.findByUsernameOrEmail(request.email(), request.email()).isPresent()){
             isValid=false;
             //throw new InvalidAuthException("Já existe um usuário com esse e-mail.");
+        }
+
+        return isValid;
+    }
+
+
+
+
+    private boolean validateUpdateRequest(UpdateUserRequest request) {
+
+        boolean isValid=true;
+
+        if (request.password().length() <= 6) {
+            isValid=false;
+            //throw new InvalidAuthException("A senha deve conter mais de 6 caracteres.");
+        }
+
+        if (!Pattern.matches(PASSWORD_REGEX, request.password())) {
+            isValid=false;
+            //throw new InvalidAuthException("A senha deve conter letras e números.");
         }
 
         return isValid;

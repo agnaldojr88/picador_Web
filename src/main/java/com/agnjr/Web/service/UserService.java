@@ -51,6 +51,49 @@ public class UserService implements UserDetailsService {
     }
 
 
+    public void deletar(Long id) {
+        userRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Usuário não encontrado com id: " + id));
+        userRepository.deleteById(id);
+    }
+
+    /*
+    public User atualizar(Long id, User userAtualizado) {
+        if (!userRepository.existsById(id)) {
+            throw new RecursoNaoEncontradoException("User não encontrado com id: " + id);
+        }
+
+        User user = User.builder()
+                .id(userAtualizado.getId())
+                .name(userAtualizado.getName())
+                .lastName(userAtualizado.getLastName())
+                .email(userAtualizado.getEmail())
+                .password(passwordEncoder.encode(userAtualizado.getPassword()))
+                .role(userAtualizado.getRole())
+                .build();
+
+
+        return userRepository.save(user);
+    }
+    */
+
+
+    /*
+
+    if(validateRegisterRequest(registerRequest)) {
+
+            User user = User.builder()
+                    .name(registerRequest.name())
+                    .lastName(registerRequest.lastName())
+                    .email(registerRequest.email())
+                    .password(passwordEncoder.encode(registerRequest.password()))
+                    .role(registerRequest.role()).build();
+            userService.save(user);
+            return true;
+        }else{
+            return false;
+        }
+
+     */
 
 
 }
