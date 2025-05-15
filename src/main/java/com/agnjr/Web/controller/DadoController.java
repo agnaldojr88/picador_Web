@@ -45,9 +45,11 @@ public class DadoController {
 
 
     //URL: http://localhost:8082/picadores/dados/HorimetrosPorDia/452025
-    @GetMapping("/HorimetrosPorDia/{idPicador}")
-    public ResponseEntity<List<HorimetroGrafDTO>> listarHorimetrosPorDia(@PathVariable Long idPicador) {
-        List<HorimetroGrafDTO> resultado = dadoService.getHorimetrosPorDia(idPicador);
+    @GetMapping("/HorimetrosPorDia/{codigoPicador}")
+    public ResponseEntity<List<HorimetroGrafDTO>> listarHorimetrosPorDia(@PathVariable Long codigoPicador) {
+
+
+        List<HorimetroGrafDTO> resultado = dadoService.getHorimetrosPorDia(codigoPicador);
         return ResponseEntity.ok(resultado);
     }
 
