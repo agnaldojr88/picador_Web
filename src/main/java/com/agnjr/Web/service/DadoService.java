@@ -1,6 +1,7 @@
 
 package com.agnjr.Web.service;
 
+import com.agnjr.Web.dto.HorimetroGrafDTO;
 import com.agnjr.Web.model.Dado;
 import org.springframework.data.domain.Pageable;
 
@@ -21,5 +22,5 @@ public interface DadoService {
 
     Dado salvar(Dado dado);
 
-
+    List<HorimetroGrafDTO> getHorimetrosPorDia(Long codigoPicador);
 }

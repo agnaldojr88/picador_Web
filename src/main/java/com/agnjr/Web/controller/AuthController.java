@@ -60,7 +60,7 @@ public class AuthController {
     public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest) {
 
         if(authService.update(updateUserRequest)) {
-            return ResponseEntity.ok("Usuário cadastrado com sucesso!");
+            return ResponseEntity.ok("Usuário atualizado com sucesso!");
         }else{
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Campos inválidos!");
         }

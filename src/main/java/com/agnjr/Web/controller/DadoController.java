@@ -1,6 +1,7 @@
 package com.agnjr.Web.controller;
 
 
+import com.agnjr.Web.dto.HorimetroGrafDTO;
 import com.agnjr.Web.service.DadoService;
 import com.agnjr.Web.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/picadores/dados/")
@@ -39,6 +42,16 @@ public class DadoController {
         Pageable pageable = PageRequest.of(page, size, Sort.by("dataHora").descending());
         return ResponseEntity.ok(dadoService.getAllByCodigoPicadorPaginado(codigoPicador, pageable));
     }
+
+
+    //URL: http://localhost:8082/picadores/dados/HorimetrosPorDia/452025
+    @GetMapping("/HorimetrosPorDia/{idPicador}")
+    public ResponseEntity<List<HorimetroGrafDTO>> listarHorimetrosPorDia(@PathVariable Long idPicador) {
+        List<HorimetroGrafDTO> resultado = dadoService.getHorimetrosPorDia(idPicador);
+        return ResponseEntity.ok(resultado);
+    }
+
+
 
     /*
     //http://localhost:8082/dados/findTop/?codigoPicador=452025

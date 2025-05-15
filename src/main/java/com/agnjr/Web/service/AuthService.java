@@ -110,6 +110,7 @@ public class AuthService {
 
         boolean isValid=true;
 
+
         if (request.password().length() <= 6) {
             isValid=false;
             //throw new InvalidAuthException("A senha deve conter mais de 6 caracteres.");
