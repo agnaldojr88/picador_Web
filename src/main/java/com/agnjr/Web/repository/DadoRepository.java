@@ -38,7 +38,7 @@ public interface DadoRepository extends JpaRepository<Dado, Long> {
         FROM dado
         WHERE codigo_picador = :id
         GROUP BY DATE(data_hora)
-        ORDER BY dia
+        ORDER BY dia DESC
         LIMIT 0,6
         """, nativeQuery = true)
     List<HorimetroGrafDTO> buscarHorimetrosPorDia(@Param("id") Long id);
