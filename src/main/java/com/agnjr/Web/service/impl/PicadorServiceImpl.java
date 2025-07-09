@@ -82,7 +82,7 @@ public class PicadorServiceImpl implements PicadorService {
     @Override
     public Picador atualizar(Long id, Picador picadorAtualizado) {
         if (!picadorRepository.existsById(id)) {
-            throw new RecursoNaoEncontradoException("Carro não encontrado com id: " + id);
+            throw new RecursoNaoEncontradoException("Picador não encontrado com id: " + id);
         }
         picadorAtualizado.setId(id);
         return picadorRepository.save(picadorAtualizado);
@@ -91,7 +91,7 @@ public class PicadorServiceImpl implements PicadorService {
 
     @Override
     public void deletar(Long id) {
-        picadorRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Carro não encontrado com id: " + id));
+        picadorRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Picador não encontrado com id: " + id));
         picadorRepository.deleteById(id);
     }
 

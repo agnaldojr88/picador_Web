@@ -29,11 +29,11 @@ public interface DadoRepository extends JpaRepository<Dado, Long> {
     @Query(value = """
         SELECT 
             DATE(data_hora) AS dia,
-            ((MAX(var05_horimetro_geralh) * 60) + MAX(var08_horimetro_geralm)) - 
-            ((MIN(var05_horimetro_geralh) * 60) + MIN(var08_horimetro_geralm)) AS horimetroGeral,
+            ((MAX(var07_horimetro_diarioh) * 60) + MAX(var10_horimetro_diariom)) - 
+            ((MIN(var07_horimetro_diarioh) * 60) + MIN(var10_horimetro_diariom)) AS horimetroGeral,
             
-            ((MAX(var06_horimetro_producaoh) * 60) + MAX(var09_horimetro_producaom)) - 
-            ((MIN(var06_horimetro_producaoh) * 60) + MIN(var09_horimetro_producaom)) AS horimetroProducao
+            ((MAX(var14_horimetro_diario_producaoh) * 60) + MAX(var15_horimetro_diario_producaom)) - 
+            ((MIN(var14_horimetro_diario_producaoh) * 60) + MIN(var15_horimetro_diario_producaom)) AS horimetroProducao
 
         FROM dado
         WHERE codigo_picador = :id

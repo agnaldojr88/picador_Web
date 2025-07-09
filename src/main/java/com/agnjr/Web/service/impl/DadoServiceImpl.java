@@ -64,19 +64,27 @@ public class DadoServiceImpl implements DadoService {
     @Override
     public Dado salvar(Dado dado) {
 
-        Dado ultimo = getFindTopByCodigoPicadorOrderByDataHoraDesc(dado.getCodigoPicador());
 
-        for (int i = 1; i <= 9; i++) {
-            compararBits(
-                    getValorPorIndice(ultimo, i),
-                    getValorPorIndice(dado, i),
-                    i,
-                    dado.getCodigoPicador(),
-                    dado.getDataHora()
-            );
-        }
 
-        return dadoRepository.save(dado);
+            Dado ultimo = getFindTopByCodigoPicadorOrderByDataHoraDesc(dado.getCodigoPicador());
+
+            if (ultimo != null) {
+
+                for (int i = 1; i <= 9; i++) {
+                    compararBits(
+                            getValorPorIndice(ultimo, i),
+                            getValorPorIndice(dado, i),
+                            i,
+                            dado.getCodigoPicador(),
+                            dado.getDataHora()
+                    );
+                }
+
+            }
+
+            return dadoRepository.save(dado);
+
+
     }
 
     /**
@@ -114,7 +122,6 @@ public class DadoServiceImpl implements DadoService {
                     identificador = "W" + wordIndex + "_Bit" + i;
 
                     //System.out.println("Word W" + wordIndex + " - Bit " + i + " mudou de " + bitAntigo + " para " + bitNovo);
-
 
                     Alarme alarme = new Alarme();
                     alarme.setDescricao(DicionarioAlarmes.getDescricao(identificador));

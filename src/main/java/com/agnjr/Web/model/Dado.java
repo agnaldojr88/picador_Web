@@ -23,45 +23,48 @@ public class Dado {
     private Long id;
 
     private LocalDateTime dataHora;
+
     private float var01_nivelCombustivel;
     private float var02_pressaoOleo;
     private float var03_rpm;
     private float var04_tempAguaAref;
 
     private int var05_horimetroGeralH;
-    private int var06_horimetroProducaoH;
+    private int var06_horimetroGeralProducaoH;
+
     private int var07_horimetroDiarioH;
     private int var08_horimetroGeralM;
-    private int var09_horimetroProducaoM;
+    private int var09_horimetroGeralProducaoM;
     private int var10_horimetroDiarioM;
 
-    private float var11_consumoLenta;
-    private float var12_consumoProducao;
+    private float var11_totDiarioConsumoLenta;
+    private float var12_totDiarioConsumoProducao;
 
     private long  codigoPicador;
-    private long  var14_;
-    private long  var15_;
+    private int  var14_horimetroDiarioProducaoH;
+    private int  var15_horimetroDiarioProducaoM;
     private long  var16_;
     private long  var17_;
     private long  var18_;
 
-    private int var19_;
+    private int var19_posicaoPedalAcelerador;
     private int var20_;
     private int var21_;
     private int var22_;
     private int var23_;
-    private float var24_;
-    private float var25_;
-    private float var26_;
-    private float var27_;
-    private float var28_;
+
+    private float var24_temperaturaAdmissao;
+    private float var25_bateria;
+    private float var26_porcentagemTorqueMotor;
+    private float var27_pressaoCombustivelMotor;
+    private float var28_nivelLiqResfriamento;
     private byte  var29_;
     private byte  var30_;
     private byte  var31_;
     private byte  var32_;
     private byte  var33_;
-    private long var34_;
-    private long var35_;
+    private float var34_pressaoAdmissaoArMotor;
+    private float var35_temperaturaGasesEscapeMotor;
     private long var36_;
     private int var37_listaFalhasAlarmesW1;
     private int var38_listaFalhasAlarmesW2;
