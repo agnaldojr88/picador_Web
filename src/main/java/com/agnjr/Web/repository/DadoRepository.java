@@ -1,5 +1,6 @@
 package com.agnjr.Web.repository;
 
+import com.agnjr.Web.dto.ConsumoGrafDTO;
 import com.agnjr.Web.dto.HorimetroGrafDTO;
 import com.agnjr.Web.dto.UserDTO;
 import com.agnjr.Web.model.Dado;
@@ -42,6 +43,31 @@ public interface DadoRepository extends JpaRepository<Dado, Long> {
         LIMIT 0,6
         """, nativeQuery = true)
     List<HorimetroGrafDTO> buscarHorimetrosPorDia(@Param("id") Long id);
+
+
+
+
+    @Query(value = """
+        SELECT 
+            DATE(data_hora) AS dia,
+                    
+            MAX(var11_tot_diario_consumo_lenta) as totDiarioConsumoLenta,
+            MAX(var12_tot_diario_consumo_producao) as totDiarioConsumoProducao,
+            MAX(var11_tot_diario_consumo_lenta) + MAX(var12_tot_diario_consumo_producao) as totConsumoTotal
+           
+        FROM dado
+        WHERE codigo_picador = :id
+        GROUP BY DATE(data_hora)
+        ORDER BY dia DESC
+        LIMIT 0,6
+        """, nativeQuery = true)
+    List<ConsumoGrafDTO> buscaConsumoPorDia(@Param("id") Long id);
+
+
+
+
+
+
 
     /*
     SELECT

@@ -1,5 +1,6 @@
 package com.agnjr.Web.service.impl;
 
+import com.agnjr.Web.dto.ConsumoGrafDTO;
 import com.agnjr.Web.dto.HorimetroGrafDTO;
 import com.agnjr.Web.model.Alarme;
 import com.agnjr.Web.model.Dado;
@@ -58,7 +59,10 @@ public class DadoServiceImpl implements DadoService {
         return dadoRepository.buscarHorimetrosPorDia(codigoPicador);
     }
 
-
+    @Override
+    public List<ConsumoGrafDTO> getConsumoPorDia(Long codigoPicador) {
+        return dadoRepository.buscaConsumoPorDia(codigoPicador);
+    }
 
 
     @Override

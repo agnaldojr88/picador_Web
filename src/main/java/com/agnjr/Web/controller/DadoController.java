@@ -1,6 +1,7 @@
 package com.agnjr.Web.controller;
 
 
+import com.agnjr.Web.dto.ConsumoGrafDTO;
 import com.agnjr.Web.dto.HorimetroGrafDTO;
 import com.agnjr.Web.service.DadoService;
 import com.agnjr.Web.service.UserService;
@@ -47,9 +48,15 @@ public class DadoController {
     //URL: http://localhost:8082/picadores/dados/HorimetrosPorDia/452025
     @GetMapping("/HorimetrosPorDia/{codigoPicador}")
     public ResponseEntity<List<HorimetroGrafDTO>> listarHorimetrosPorDia(@PathVariable Long codigoPicador) {
-
-
         List<HorimetroGrafDTO> resultado = dadoService.getHorimetrosPorDia(codigoPicador);
+        return ResponseEntity.ok(resultado);
+    }
+
+
+    //URL: http://localhost:8082/picadores/dados/ConsumoPorDia/452025
+    @GetMapping("/ConsumoPorDia/{codigoPicador}")
+    public ResponseEntity<List<ConsumoGrafDTO>> listarConsumoPorDia(@PathVariable Long codigoPicador) {
+        List<ConsumoGrafDTO> resultado = dadoService.getConsumoPorDia(codigoPicador);
         return ResponseEntity.ok(resultado);
     }
 
