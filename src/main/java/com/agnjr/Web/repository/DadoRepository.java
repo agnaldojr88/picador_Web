@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -64,7 +65,9 @@ public interface DadoRepository extends JpaRepository<Dado, Long> {
     List<ConsumoGrafDTO> buscaConsumoPorDia(@Param("id") Long id);
 
 
-
+    List<Dado> findByCodigoPicadorAndDataHoraBetweenOrderByDataHora(
+            Long codigoPicador, LocalDateTime dataInicio, LocalDateTime dataFim
+    );
 
 
 

@@ -2,17 +2,19 @@ package com.agnjr.Web.controller;
 
 
 import com.agnjr.Web.dto.ConsumoGrafDTO;
+import com.agnjr.Web.dto.DadoDTO;
 import com.agnjr.Web.dto.HorimetroGrafDTO;
 import com.agnjr.Web.service.DadoService;
-import com.agnjr.Web.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -42,6 +44,16 @@ public class DadoController {
     ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("dataHora").descending());
         return ResponseEntity.ok(dadoService.getAllByCodigoPicadorPaginado(codigoPicador, pageable));
+    }
+
+    @GetMapping("/historico")
+    public ResponseEntity<List<DadoDTO>> getHistoricoDados(
+            @RequestParam Long codigoPicador,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicio,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim
+    ) {
+        List<DadoDTO> dados = dadoService.buscarHistorico(codigoPicador, dataInicio, dataFim);
+        return ResponseEntity.ok(dados);
     }
 
 

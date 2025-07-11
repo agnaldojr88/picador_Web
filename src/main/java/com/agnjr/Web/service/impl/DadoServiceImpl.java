@@ -1,6 +1,7 @@
 package com.agnjr.Web.service.impl;
 
 import com.agnjr.Web.dto.ConsumoGrafDTO;
+import com.agnjr.Web.dto.DadoDTO;
 import com.agnjr.Web.dto.HorimetroGrafDTO;
 import com.agnjr.Web.model.Alarme;
 import com.agnjr.Web.model.Dado;
@@ -19,6 +20,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -62,6 +64,35 @@ public class DadoServiceImpl implements DadoService {
     @Override
     public List<ConsumoGrafDTO> getConsumoPorDia(Long codigoPicador) {
         return dadoRepository.buscaConsumoPorDia(codigoPicador);
+    }
+
+    @Override
+    public List<DadoDTO> buscarHistorico(Long codigoPicador, LocalDateTime inicio, LocalDateTime fim) {
+        List<Dado> dados = dadoRepository.findByCodigoPicadorAndDataHoraBetweenOrderByDataHora(
+                codigoPicador, inicio, fim
+        );
+
+        return dados.stream().map(dado -> {
+            DadoDTO dto = new DadoDTO(
+                    dado.getDataHora().toString(),
+                    dado.getVar01_nivelCombustivel(),
+                    dado.getVar02_pressaoOleo(),
+                    dado.getVar03_rpm(),
+                    dado.getVar04_tempAguaAref(),
+                    dado.getVar11_totDiarioConsumoLenta(),
+                    dado.getVar12_totDiarioConsumoProducao(),
+                    dado.getVar19_posicaoPedalAcelerador(),
+                    dado.getVar24_temperaturaAdmissao(),
+                    dado.getVar25_bateria(),
+                    dado.getVar26_porcentagemTorqueMotor(),
+                    dado.getVar27_pressaoCombustivelMotor(),
+                    dado.getVar28_nivelLiqResfriamento(),
+                    dado.getVar34_pressaoAdmissaoArMotor(),
+                    dado.getVar35_temperaturaGasesEscapeMotor()
+            );
+
+            return dto;
+        }).collect(Collectors.toList());
     }
 
 
