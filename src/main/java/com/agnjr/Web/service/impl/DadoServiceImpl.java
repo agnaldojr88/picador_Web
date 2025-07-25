@@ -110,8 +110,7 @@ public class DadoServiceImpl implements DadoService {
                             getValorPorIndice(ultimo, i),
                             getValorPorIndice(dado, i),
                             i,
-                            dado.getCodigoPicador(),
-                            dado.getDataHora()
+                            dado
                     );
                 }
 
@@ -143,7 +142,7 @@ public class DadoServiceImpl implements DadoService {
     /**
      * Método que compara dois valores e imprime as diferenças bit a bit
      */
-    private void compararBits(int valorAntigo, int valorNovo, int wordIndex, long codigoPicador, LocalDateTime dataHoraEvento) {
+    private void compararBits(int valorAntigo, int valorNovo, int wordIndex, Dado dado) {
 
         String identificador = "";
 
@@ -159,15 +158,23 @@ public class DadoServiceImpl implements DadoService {
                     //System.out.println("Word W" + wordIndex + " - Bit " + i + " mudou de " + bitAntigo + " para " + bitNovo);
 
                     Alarme alarme = new Alarme();
+
+
                     alarme.setDescricao(DicionarioAlarmes.getDescricao(identificador));
+
+                    if(identificador.equals("W5_Bit6")){
+                        alarme.setDescricao(DicionarioAlarmes.getDescricao(identificador) + " FMI: " + dado.getVar16_CanFmiMotor() + " - SPN: " + dado.getVar17_CanSpnMotor() );
+                    }
+
+
                     alarme.setValor(bitNovo == 1);
                     alarme.setDataHora(LocalDateTime.now());
-                    alarme.setCodigoPicador(codigoPicador);
-                    alarme.setDataHoraEvento(dataHoraEvento);
+                    alarme.setCodigoPicador(dado.getCodigoPicador());
+                    alarme.setDataHoraEvento(dado.getDataHora());
                     alarme.setIdentificador(identificador);
                     alarmeService.salvar(alarme);
 
-                    System.out.println("Alarme gravado: " + alarme.getDescricao() + " | Picador: " + codigoPicador);
+                    System.out.println("Alarme gravado: " + alarme.getDescricao() + " | Picador: " + dado.getCodigoPicador());
 
                 }
             }

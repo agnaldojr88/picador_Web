@@ -43,15 +43,15 @@ public class Dado {
     private long  codigoPicador;
     private int  var14_horimetroDiarioProducaoH;
     private int  var15_horimetroDiarioProducaoM;
-    private long  var16_;
-    private long  var17_;
+    private long  var16_CanFmiMotor;
+    private long  var17_CanSpnMotor;
     private long  var18_;
 
     private int var19_posicaoPedalAcelerador;
     private int var20_;
     private int var21_;
     private int var22_;
-    private int var23_;
+    private int var23_statusDiversos;
 
     private float var24_temperaturaAdmissao;
     private float var25_bateria;
@@ -76,8 +76,8 @@ public class Dado {
     private int var44_listaFalhasAlarmesW8;
     private int var45_listaFalhasAlarmesW9;
     private long  var46_;
-    private long  var47_;
-    private long  var48_;
+    private long  var47_CanFmiPptech;
+    private long  var48_CanSpnPptech;
     private long  var49_;
     private long  var50_;
 

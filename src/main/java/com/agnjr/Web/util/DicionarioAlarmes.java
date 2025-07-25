@@ -16,7 +16,7 @@ public class DicionarioAlarmes {
         alarmes.put("W1_Bit12", "R(5)");
         alarmes.put("W1_Bit13", "R(7)");
         alarmes.put("W1_Bit14", "R(8)");
-        alarmes.put("W1_Bit15", "R(9)");
+        alarmes.put("W1_Bit15", "ALARME BATERIA COM BAIXA CAPACIDADE DE ARRANQUE");
         alarmes.put("W1_Bit0", "ALARME SENSOR EMBREAGEM");
         alarmes.put("W1_Bit1", "ALARME NIVEL COMBUSTIVEL BAIXO IHM");
         alarmes.put("W1_Bit2", "FALHA ALTERNADOR IHM");
@@ -82,22 +82,22 @@ public class DicionarioAlarmes {
         alarmes.put("W4_Bit7", "ALARME DEFEITO FÚSIVEL F10.8");
 
 
-        alarmes.put("W5_Bit8", "R_41");
-        alarmes.put("W5_Bit9", "R_42");
-        alarmes.put("W5_Bit10", "R_43");
-        alarmes.put("W5_Bit11", "R_44");
-        alarmes.put("W5_Bit12", "R_45");
-        alarmes.put("W5_Bit13", "R_46");
-        alarmes.put("W5_Bit14", "R_47");
-        alarmes.put("W5_Bit15", "R_48");
-        alarmes.put("W5_Bit0", "R_49");
+        alarmes.put("W5_Bit8", "EMBREAGEM PPTECH - BLOQUEIO TEMPORIZADO");
+        alarmes.put("W5_Bit9", "EMBREAGEM PPTECH - SOBRECARGA NA EMBREAGEM");
+        alarmes.put("W5_Bit10", "EMBREAGEM PPTECH - FALHA TEMPERATURA DE ÓLEO");
+        alarmes.put("W5_Bit11", "EMBREAGEM PPTECH - FILTRO ENTUPIDO");
+        alarmes.put("W5_Bit12", "EMBREAGEM PPTECH - FALHA RPM ALTA");
+        alarmes.put("W5_Bit13", "EMBREAGEM PPTECH - FALHA BOBINA");
+        alarmes.put("W5_Bit14", "EMBREAGEM PPTECH - FALHA SAFETY");
+        alarmes.put("W5_Bit15", "EMBREAGEM PPTECH - FALHA PRESSÃO DE ÓLEO");
+        alarmes.put("W5_Bit0", "EMBREAGEM PPTECH - FALHA DE COMUNICAÇÃO CAN");
         alarmes.put("W5_Bit1", "R_50");
         alarmes.put("W5_Bit2", "R_51");
         alarmes.put("W5_Bit3", "R_52");
         alarmes.put("W5_Bit4", "R_53");
         alarmes.put("W5_Bit5", "R_54");
         alarmes.put("W5_Bit6", "ALARME CAN ATIVO CODIGO -");
-        alarmes.put("W5_Bit7", "ALARME CAN CODIGO -");
+        alarmes.put("W5_Bit7", "ALARME CAN BACKUP CODIGO -");
 
 
 
@@ -116,7 +116,7 @@ public class DicionarioAlarmes {
         alarmes.put("W6_Bit4", "CAN - FILTRO DE AR DO MOTOR ENTUPIDO");
         alarmes.put("W6_Bit5", "FALHA MANUTENÇÃO - CONSULTAR ROSSETI");
         alarmes.put("W6_Bit6", "ALARME MANUTENÇÃO PREVENTIVA - HORIMETRO ACIONADO");
-        alarmes.put("W6_Bit7", "R(41)");
+        alarmes.put("W6_Bit7", "CAN - ALARME SENSOR DE ÓLEO DO MOTOR");
 
 
 
@@ -166,9 +166,9 @@ public class DicionarioAlarmes {
         alarmes.put("W9_Bit14", "R_111");
         alarmes.put("W9_Bit15", "R_112");
         alarmes.put("W9_Bit0", "R_113");
-        alarmes.put("W9_Bit1", "R_114");
-        alarmes.put("W9_Bit2", "R_115");
-        alarmes.put("W9_Bit3", "R_116");
+        alarmes.put("W9_Bit1", "CAN - STATUS DE WARNING ATIVO - DM1, VERIFICA CÓDIGO SPN E FMI");
+        alarmes.put("W9_Bit2", "CAN - STATUS DE STOP ATIVO, DESLIGUE O MOTOR IMEDIATAMENTE - DM1");
+        alarmes.put("W9_Bit3", "CAN - ALARME DE COMUNICAÇÃO CAN COM BACKBONE 1 - BB1");
         alarmes.put("W9_Bit4", "R_117");
         alarmes.put("W9_Bit5", "R_118");
         alarmes.put("W9_Bit6", "R_119");
