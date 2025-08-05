@@ -26,7 +26,8 @@ public class Manutencao {
     private LocalDateTime dataHora;
     private String descricao;
     private long codigoPicador;
-
+    private long horimetroHora;
+    private long horimetroMinuto;
 
 
 }
